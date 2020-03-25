@@ -1,20 +1,20 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1584509076942.000,
+    "created" : 1585118079023.000,
     "dirty" : false,
     "encoding" : "",
     "folds" : "",
     "hash" : "0",
-    "id" : "3CBA8CF6",
-    "lastKnownWriteTime" : 7742357693285933159,
-    "last_content_update" : 1584509076943,
+    "id" : "A07451AE",
+    "lastKnownWriteTime" : 2281799287280,
+    "last_content_update" : 1585118079023,
     "path" : null,
     "project_path" : null,
     "properties" : {
-        "cursorPosition" : "1,0",
-        "scrollLine" : "0",
-        "tempName" : "Untitled1"
+        "id" : "9b04d15cab104efe9e1bef66885ad1b8",
+        "name" : ".",
+        "title" : "."
     },
     "read_only" : false,
     "read_only_alternatives" : [
@@ -22,5 +22,5 @@
     "relative_order" : 3,
     "source_on_save" : false,
     "source_window" : "",
-    "type" : "r_markdown"
+    "type" : "object_explorer"
 }
