@@ -76,3 +76,22 @@ ss <- as_sheets_id (`出席狀況表單網址`)
 homework_sheet <- sheets_read(ss,sheet=1)
 ```
 #箭頭左邊不可以出現單雙引號，若要定義角色名要用反頓點`
+
+```{r}
+list('123',22,33)
+c('132',33,22)
+```
+```{r}
+my_108_total_credits <- 15
+m108_total_credits <- 15
+m108_total_credits <- 15
+my_108_total_credits <- 15
+my.108.total_credits <- 15
+.m108.total_credits <- 15 # 隱藏變數
+.my.108.total_credits <- 15
+m <- 15
+l <- 15 # 特殊名稱處理，`不是名稱的一部份
+`.108.total_credits` <- 15
+``` 
+#只能點字母或字母開頭
+
