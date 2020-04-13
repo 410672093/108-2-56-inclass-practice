@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1583906870785.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "237220610",
+    "id" : "3F647111",
+    "lastKnownWriteTime" : 1586786479,
+    "last_content_update" : 1586786480022,
+    "path" : "~/GitHub/108-2-56-inclass-practice/20200413第5次上課.Rmd",
+    "project_path" : "20200413第5次上課.Rmd",
+    "properties" : {
+        "cursorPosition" : "418,8",
+        "docOutlineVisible" : "0",
+        "last_setup_crc32" : "3F4FBC68bb338d19",
+        "scrollLine" : "414",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

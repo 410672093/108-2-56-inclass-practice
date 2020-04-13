@@ -1,0 +1,432 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+```{r}
+library(googlesheets4)
+library(dplyr)
+library(lubridate)
+```
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+`我的年紀` <- 20
+my_age <- `我的年紀`
+```
+```{r}
+num1 <- 5
+vNum1 <- c(2,5)
+vNum2 <- c(2, num1)
+vNum3 <- c(-1,-3, num1)
+vNum4 <- c(c(1,2),c(2, num1))
+```
+#v2括號裡的Num前面有空格
+```{r}
+vNum5 <- c()
+vNum6 <- c(vNum5,vNum2)
+```
+```{r}
+num1<-5 # 非整數
+num2<-5L # 整數
+
+num1Vector<-c(5,6,7)
+num2Vector<-c(5L,6L,7L)
+```
+```{r}
+flowersaid <- c('小明說："明天不用上課。"',
+               '小花說："真的嗎？"')
+
+char1Vector <- c('flowersaid',"sue")
+
+```
+```{r}
+library(httr)
+library(dplyr)
+GET("https://api.github.com/repos/tpemartin/108-2-56-inclass-practice/commits") %>%
+  content() %>%
+  View()
+```
+```{r}
+library(googlesheets4)
+`出席狀況表單網址` <-  "https://docs.google.com/spreadsheets/d/1EAG49qDKPWWi0ebkVr29TLrvVnoBPfkvxYY-J3xLAHY/edit#gid=458686645) " #缺乏定義值
+ss <- as_sheets_id (`出席狀況表單網址`)
+homework_sheet <- sheets_read(ss,sheet=1)
+```
+#箭頭左邊不可以出現單雙引號，若要定義角色名要用反頓點`
+
+```{r}
+list('123',22,33)
+c('132',33,22)
+```
+```{r}
+my_108_total_credits <- 15
+m108_total_credits <- 15
+m108_total_credits <- 15
+my_108_total_credits <- 15
+my.108.total_credits <- 15
+.m108.total_credits <- 15 # 隱藏變數
+.my.108.total_credits <- 15
+m <- 15
+l <- 15 # 特殊名稱處理，`不是名稱的一部份
+`.108.total_credits` <- 15
+``` 
+#只能點字母或字母開頭
+
+```{r}
+dialogue <- c('小名:"黑色"','小花:"為什麼"')
+cat(dialogue, sep="\n")
+```
+```{r}
+logi1 <- c(T,TRUE,F,FALSE,FALSE)
+sum (logi1)
+```
+```{r}
+one <- c(1.5, 2, 3)
+two <- c(1L, 3L, -2L)
+three <- c("1.5","2","3")
+four <- c(T,T,F)
+
+typeof(one)
+typeof(two)
+typeof(three)
+typeof(four)
+class(num)
+class(int)
+class(char)
+class(logi)
+```
+```{r}
+# 10位學生的主系
+majors10_char <- c('經濟學系','社會學系','社會學系','經濟學系','經濟學系','社會學系','經濟學系','經濟學系','經濟學系','社會學系')
+majors10_factor <- factor(majors10_char) 
+typeof(majors10_factor)#interger由factor(majors10_char) 轉成區間
+class(majors10_factor)#factor的螢幕顯示型態作的分類是factor
+
+typeof(majors10_char)#char裡面有很多字元
+class(majors10_char)#儲存方式是char
+as.integer (majors10_char)#資料的class轉成integer，顯示電腦用啥在存取他
+levels(majors10_factor)#還原原本自取的元素本人
+```
+```{r}
+stringInteger <- c("a","b","c")
+testInteger <- as.integer(stringInteger)#字元不能運算只好用as函數把它變成區間int，記得再給一個變數名稱!
+typeof(testInteger)#用as轉過就可以運算，就可以跑class和typeoffactor
+class(testInteger)
+
+as.integer(stringInteger)
+class(stringInteger)#對於原本沒轉換過含有物件的變數，class會直接丟原本內容物
+```
+```{r}
+studentId <- c(410773002, 410773015,410672093)
+class(studentId)
+typeof(studentId)
+#double指的是小數點後兩位精確度
+```
+```{r}
+library(lubridate)
+tpeTime <- ymd_hms("2020-03-18 13:52:40",tz="Asia/Taipei")
+
+tpeTime <- lubridate::ymd_hms("2020-03-18 13:52:40",
+        tz="Asia/Taipei")
+```
+```{r}
+pgTime <- mdy_hms("Mar.18, 2020, 05:52:40",tz="Europe/Lisbon")
+```
+```{r}
+c("Mar.18, 2020, 05:52:40","一方","2")#用vector存
+```
+```{r}
+library(lubridate)
+`小明的一天` <- list(ymd_hms("Mar.18, 2020 05:52:40"),"一方",2)
+print(`小明的一天`)
+```
+```{r}
+with_tz(tpeTime, tzone="Europe/Paris")
+with_tz(pgTime, tzone="Europe/Paris")
+```
+
+```{r}
+stutime <- list(ymd_hms("2020-03-04T06:45:27Z"))
+class <- (stutime)
+
+```
+```{r}
+studentTime <- c(
+  ymd_hms("2020-03-04T08:15:28Z"),
+  ymd_hms("2020-03-11 16:20:43"),
+  ymd_hms("2020-03-11 16:20:43",tz="Asia/Taipei")
+  )
+ class <- (studentTime)
+```
+```{r} 
+`課表`<- list(c("a","b","c","c"),#裡面有三個
+c("a","s","b"))#是單一個裡面有5個元素-變成完全沒有分群概念的vector
+print(`課表`)
+
+```
+```{r}
+`課表`<- list(
+  list("a","b","c","c"),
+  list("a","s","b"))#是單一個裡面有5個元素-變成完全沒有分群概念的vector
+print(`課表`)
+#會顯示1-1-1/1-1-2/1-1-3/
+`課表2`<- list(
+  list("B","b","c","c"),
+  list("B","s","b"))#是單一個裡面有5個元素-變成完全沒有分群概念的vector
+print(`課表2`)
+```
+
+```{r}
+`課表3`<- list(
+  list("108",c("國","英","數")),#幫忙把課表分組國英數為list
+  c("a","s","b")) # 為char
+print(`課表3`)
+```
+
+```{r}
+`課表4`<- list(`上`=list(semester=c("108"),lessons=(c("國","英","數學"))),`下`=c("a","s","b"))
+print(`課表`)
+
+#沒命名的話會用數字List2
+#可以邊取名字
+#為什麼底下會變橘色console?因為沒有print出來
+```
+
+#github commit
+```{r}
+commit <- list(
+  author = list(
+    name="Martin",
+    email="mtlin@gm.ntpu.edu.tw",
+    time="2020-03-25T07:17:40Z"),
+
+committer =list(
+    name="emilyluckey",
+    email="emily007@gmail.com",
+    time="2020-03-26T08:18:40Z"),
+
+message= "update"
+)
+
+print(commit) #很多塊時候要記得List之間有頓號!!
+```
+#還有to jason沒載
+
+```{r}
+`小名成績108-1` <- list(
+   list(course1="個體經濟學",
+   teacher1="alice",
+   score1="85"),
+   
+   list(course2="總體經濟學",
+   teacher2="mark",
+   score2="73"))
+
+`小名成績108-2` <- list(
+   course3="作研",
+   teacher3="jb",
+   score3="90")
+   
+print(`小名成績108-1`)
+print(`小名成績108-2`)
+```
+#今（“2020-03-31”）明（“2020-04-01”）「台北市」氣溫最高25度，最低18度；「新北市」氣溫最高24度，最低15度
+```{r}
+`明天2020-04-01氣溫` <- list(
+  `tp`=list(
+```
+
+
+```{r}
+maxtemp="25",
+  mintemp="18"),
+  `ntp`=list(
+  maxtemp="24",
+  mintemp="15")
+)
+print(`明天2020-04-01氣溫`)
+```
+
+```{r}
+`天氣預報` <-list(
+  `台北市` = list(
+    date = c(
+      today = "2020-03-31", 
+      tomorrow = "2020-04-01"
+    ), 
+    highest = 25, 
+    lowest = 18
+  ), 
+  `新北市` = list(
+    date = c(
+      today = "2020-03-31", 
+      tomorrow = "2020-04-01"
+    ), 
+    higest = 24, 
+    lowest = 15
+  )
+)
+print(`天氣預報`)
+```
+
+```{r}
+library(jsonlite)
+```
+```{r}
+vectorExample <- c("羽","毛","球")
+# 有多少位置可選
+length(vectorExample)
+print(vectorExample)
+vectorExample[[3]]
+```
+
+```{r}
+listExample <- 
+  list(
+    student="小明",
+    `學期`=list(
+      `108-1`=list(
+        list(
+          name="個體經濟學",
+          teacher="Alice",
+          grade=85
+        )
+      ),
+      `108-2`=list(
+        list(
+          name="總體經濟學",
+          teacher="Mark",
+          grade=78
+        )
+      )
+    )
+  )
+# 有多少位置可選：
+length(listExample)
+listExample[[2]]
+```
+```{r}
+str(listExample$student)#字元
+listExample[["學期"]]#是值而且要用雙引號呼叫,字串可以不用反頓點
+```
+
+
+```{r}
+str(listExample) #原始資料的結構(structure)
+listExample$`學期`
+```
+
+```{r}
+fromJSON("https://data.tainan.gov.tw/dataset/4cd9345a-04bf-4328-a97d-314ff78b4763/resource/afc025fc-1ef4-447c-b785-a680391d0ca1/download/tnsport2.json", simplifyDataFrame = F) -> tainanSportsMap
+names(tainanSportsMap)
+```
+```{r}
+fromJSON("http://data.ntpc.gov.tw/api/v1/rest/datastore/382000000A-000157-002",
+         simplifyDataFrame = F) -> newTaipeiCityVaccine
+#str(newTaipeiCityVaccine)
+length(newTaipeiCityVaccine)
+names(newTaipeiCityVaccine)
+str(newTaipeiCityVaccine$success)
+str(newTaipeiCityVaccine$true)
+```
+
+
+```{r}
+#str(newTaipeiCityVaccine[[2]])
+#(newTaipeiCityVaccine[["result"]])
+#str(newTaipeiCityVaccine$result)
+#有三種可以使用的選法:
+#[[數字]]、[["值"]]、$值
+```
+
+```{r}
+#選多個元素可用位置c選
+str(vectorExample)
+vectorExample[c(2,1.5)]
+#str(listExample,max.level = 3)
+str(listExample[c(2,1)],max.level = 1)
+```
+
+```{r}
+str(tainanSportsMap[c(12)],max.level = 1)
+vectorExample[c(2)]
+vectorExample[[2]]
+```
+
+```{r}
+fromJSON("https://www.dropbox.com/s/qnm9bnz7vccrvcz/taipeiNightMarkets.json?dl=1", simplifyDataFrame = F) -> taipeiNightMarkets
+```
+```{r}
+#str(taipeiNightMarkets,max.level = 1)
+names(taipeiNightMarkets)
+length(taipeiNightMarkets)
+```
+```{r}
+taipeiNightMarkets[c(T,F,F,F,F,F,F,F,F,F,F,F,F,F)]
+#用邏輯向量選也可以，但是有幾個變數就要寫幾個TF，而且沒辦法改順序~
+#所以用向量選還是蠻方便的
+taipeiNightMarkets[[1]]
+taipeiNightMarkets$寧夏觀光夜市
+taipeiNightMarkets[["寧夏觀光夜市"]]
+```
+```{r}
+str(taipeiNightMarkets[c(T,F,F,F,F,F,F,F,F,F,F,F,F,F)])
+str(taipeiNightMarkets$寧夏觀光夜市)
+str(taipeiNightMarkets[c(1,2)])
+str(taipeiNightMarkets[c("寧夏觀光夜市")])
+```
+```{r}
+c(T,F,F,F,F,T,F,F,F,T,F,F,F,F) -> wanttogonextweek
+taipeiNightMarkets[["wanttogonextweek"]]
+taipeiNightMarkets[wanttogonextweek]
+print(wanttogonextweek)
+str(wanttogonextweek)
+```
+
+```{r}
+rep(F,14) -> wanttogonextweek
+print(wanttogonextweek)
+wanttogonextweek[c(1,2)] <- T
+#第412行把第410的邏輯取代掉
+print(wanttogonextweek)
+#只要有選出來就可以取代
+str(taipeiNightMarkets[wanttogonextweek],max.level = 1)
+#str裡面要用中括號喔
+#單個中括號要給選多個元素時使用
+#雙個中括號是只選一個的時候用的
+```
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
