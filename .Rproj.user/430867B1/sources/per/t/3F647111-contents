@@ -418,10 +418,100 @@ str(taipeiNightMarkets[wanttogonextweek],max.level = 1)
 #單個中括號要給選多個元素時使用
 #雙個中括號是只選一個的時候用的
 ```
-```{r}
 
+```{r}
+get1 <- listExample[["學期"]]#抓出某個(學期元素本人)的值
+#是比較裡面的階層
+#$`108-1`
+#$`108-1`[[1]]
+#$`108-1`[[1]]$name
+#[1] "個體經濟學"
+
+#$`108-1`[[1]]$teacher
+#[1] "Alice"
+
+#$`108-1`[[1]]$grade
+#[1] 85
+
+get2 <- listExample["學期"]#抓出某值等號另一邊的值(有幾個元素(108-1&108-2))
+#$學期
+#$學期$`108-1`
+#$學期$`108-1`[[1]]
+#$學期$`108-1`[[1]]$name
+#[1] "個體經濟學"
+
+#$學期$`108-1`[[1]]$teacher
+#[1] "Alice"
+
+#$學期$`108-1`[[1]]$grade
+#[1] 85
+
+print(get1)  
+print(get2)   
 ```
 
+```{r}
+str(get1)
+#[]: 留下某個物件值。listExample["學期"]「只留下」listExample裡的“學期”物件值。
+
+#get1 <- listExample[["學期"]]
+#是比較裡面的階層
+
+str(listExample)
+```
+```{r}
+str(get2)
+
+## listExample 只留下學期元素，是個只有一個元素的list，沒有student了
+#是包含樹幹的階層
+
+#get2 <- listExample["學期"]
+
+str(listExample)
+```
+#結論:[[是拿出來]]、[是只留下]
+#--------只要料-------連包裝，同階層的元素也不要----
+
+```{r}
+num3Vector <- c(1,2,3,4,5,6)
+#select1 <- num3Vector[c(1,2)];select1
+num3Vector[c(T,T,T,T,F,F)][c(1,4)]
+#是由左向右依序計算喔
+```
+#課後練習
+#```{r}
+majors <- c("經濟學系","經濟學系","社會學系","社工系","經濟學系")
+names <- c("小英", "小美", "大雄","阿華", "阿尼")
+gender <- c("F","F","M","F","M")
+
+econOnly <- c(majors[c(T,T,F,F,T)]);econOnly
+#econOnlyNames <- names[c(T,T,F,F,T)];econOnlyNames
+econOnlygender <- gender[c(T,T,F,F,T)][c(T,T,F,F,F)];econOnlygender
+#econOnlygender[c(T,T,F,T,F)];econOnlygender
+econOnlyNames <- names[c(T,T,F,F,T)][c(T,T,F,F,F)];econOnlyNames
+```
+
+```{r}
+econOnly <- c(T,T,F,F,T)
+names[econOnly]
+gender[econOnly]
+econOnlyFemale <- c(T,T,F)
+gender[econOnly][econOnlyFemale]
+names[econOnly][econOnlyFemale]
+```
+
+```
+課後練習
+```{r}
+#print(listExample)
+#[[數字]]、[["值"]]、$值
+get3 <- listExample$"學期"[[1]][[1]][[2]];print(get3)
+get2 <- listExample["學期"][[1]][[1]][[1]][[2]];print(get2)
+get2 <- listExample["學期"][[1]]$`108-1`[[1]]$teacher;print(get2)
+```
+```{r}
+get1 <- listExample[["學期"]]$`108-1`[[1]][["teacher"]];print(get1)
+```
 
 
 
