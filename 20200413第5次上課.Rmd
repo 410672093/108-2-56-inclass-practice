@@ -514,9 +514,139 @@ get1 <- listExample[["學期"]]$`108-1`[[1]][["teacher"]];print(get1)
 ```
 
 
+#0419課程
+```{r}
+listExample <- 
+  list(
+    student="小明",
+    `學期`=list(
+      `108-1`=list(
+        list(
+          name="個體經濟學",
+          teacher="Alice",
+          grade=85
+        )
+      ),
+      `108-2`=list(
+        list(
+          name="總體經濟學",
+          teacher="Mark",
+          grade=78
+        )
+      )
+    )
+  )
+# 有多少位置可選：
+str(listExample)
+```
+
+```{r}
+listExample$`學期`[[1]][[1]][["teacher"]]
+listExample[["學期"]][["108-1"]][[1]]$`teacher`
+listExample["學期"][[1]][["108-1"]][[1]][["teacher"]]
+listExample["學期"][["學期"]][["108-1"]][[1]][["teacher"]]
+```
+
+```{r}
+vector1 <- c(a=2,b=4,c=6)
+vector1[[1]]
+vector1[c("a","c")]
+vector1[[2]] <- "100"
+vector1
+
+```
+
+```{r}
+today <- list(
+  list("台北市",highest_temp = 25,c(lowest_temp = 18)),
+  list("新北市",c(highest_temp = 24),c(lowest_temp = 15)))
+tomorrow <- list(
+  list("台北市",c(highest_temp = 25),c(lowest_temp = 18)),
+  list("新北市",c(highest_temp = 24),c(lowest_temp = 15)))
+
+weather <- list(today,tomorrow)
+
+#print(weather)
+#str(today)
+today[[1]]$"highest_temp"
+```
+
+```{r}
+library(lubridate)
+list1 <- 
+  list(
+    list(
+      name="Jack",
+      birthday=ymd("1998-03-21"),
+      status=c(height=177, weight=80)
+    )
+  )
+#list1[[1]][["birthday"]] <- ymd("2020-6-30");list1
+list1[[2]] <- list(
+  name="mary",
+  birthday=ymd("2019-12-30"),
+  status=c(height=163,weight=45)
+  )
+list1[[1]][["status"]][[2]] <- 176;list1
+#str(list1)
+```
+
+```{r}
+list1[[1]][["age"]] <- 21#母層是c就用c
+list1[[2]]["age"] <- list(21)#母層是list就用list
+
+# 改變「一個」時，使用[[ ]]比較不會錯。
+str(list1)
+```
+
+```{r}
+list1[[1]][c("bloodType","registered")] <- list("AB",TRUE)
+#新增血型
+str(list1)
+```
 
 
+```{r}
+listExample[["學期"]][["108-1"]][[2]] <- list(name="產業經濟學",teacher="wen",grade=89)
+str(listExample)
+```
 
+```{r}
+library(lubridate)
+list1 <- 
+  list(
+    list(
+      name="Jack",
+      birthday=ymd("1998-03-21"),
+      status=c(height=177, weight=80)
+    ),
+    list(
+      name="Mary",
+      birthday=ymd("1998-08-24"),
+      status=c(height=163, weight=45),
+      age=21,
+      bloodType="AB"
+    )
+  )
 
+list1[[1]][-c(3)] -> list1[[1]]#注意單括號用來叫多個物件
+list1[[1]][[3]] <- NULL#箭頭不同邊!而且不用回存~
+list1[[2]][-c(4,5)] -> list1[[2]]#回存位置要對喔 可以試試更新看有沒有改對階層
 
+str(list1)
+```
 
+```{r}
+library(jsonlite)
+fromJSON("https://data.ntpc.gov.tw/od/data/api/54DDDC93-589C-4858-9C95-18B2046CC1FC?$format=json", simplifyDataFrame = F) -> newTaipeiYouBike
+```
+
+[{"sno":"1001","sna":"大鵬華城","tot":"38","sbi":"22","sarea":"新店區","mday":"20200419145348","lat":"24.99116","lng":"121.53398","ar":"新北市新店區中正路700巷3號","sareaen":"Xindian Dist.","snaen":"Dapeng Community","aren":"No. 3, Lane 700 Chung Cheng Road, Xindian District","bemp":"16","act":"1"}
+
+```{r}
+infonewTaipeiYouBike <- list(status=list(`站點代號`=1001,`站點位置`="da",`場站總停車格`=38),area="新店",`資料更新時間`=ymd("2020-04-19"))
+
+infonewTaipeiYouBike[[1]][-c(3)] -> infonewTaipeiYouBike[[1]]
+str(infonewTaipeiYouBike)
+
+```
