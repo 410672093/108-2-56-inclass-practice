@@ -650,3 +650,24 @@ infonewTaipeiYouBike[[1]][-c(3)] -> infonewTaipeiYouBike[[1]]
 str(infonewTaipeiYouBike)
 
 ```
+
+#20200422期中考!
+```{r}
+c(
+幾乎都答不出來
+要再看過一次:
+levels
+posixct
+as.integer的轉換
+時間怎麼放在括號裡面然後不要出現NA...
+還有MAPPING的我完全沒印象!)
+```
+
+
+
+
+
+
+
+
+
