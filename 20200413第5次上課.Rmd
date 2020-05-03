@@ -644,6 +644,7 @@ fromJSON("https://data.ntpc.gov.tw/od/data/api/54DDDC93-589C-4858-9C95-18B2046CC
 [{"sno":"1001","sna":"大鵬華城","tot":"38","sbi":"22","sarea":"新店區","mday":"20200419145348","lat":"24.99116","lng":"121.53398","ar":"新北市新店區中正路700巷3號","sareaen":"Xindian Dist.","snaen":"Dapeng Community","aren":"No. 3, Lane 700 Chung Cheng Road, Xindian District","bemp":"16","act":"1"}
 
 ```{r}
+library(lubridate)
 infonewTaipeiYouBike <- list(status=list(`站點代號`=1001,`站點位置`="da",`場站總停車格`=38),area="新店",`資料更新時間`=ymd("2020-04-19"))
 
 infonewTaipeiYouBike[[1]][-c(3)] -> infonewTaipeiYouBike[[1]]
@@ -723,13 +724,159 @@ table(example$name[after98])
 ```{r}
 source("https://www.dropbox.com/s/16h6ggua6qtydci/exchangeRate.R?dl=1")
 ```
+
 ```{r}
 str(exchangeRate)
+library(lubridate)
 after9801 <- exchangeRate$期間 >= lubridate::ymd("1998-01-01")
-newexchange <- list(`期間`＝exchangeRate$`期間`[after9801],
-                    `幣別`=exchangeRate$`幣別`[after9801],
-                    `匯率`=exchangeRate$`匯率`[after9801])
 ```
+
+```{r}
+exchangeRate_after98 <-
+  list(
+    `期間`=exchangeRate$`期間`[after9801],
+    `幣別`=exchangeRate$`幣別`[after9801],
+    `匯率`=exchangeRate$`匯率`[after9801]
+  )
+str(example)
+print(example[c("name","allowance")])
+
+```
+```{r}
+levels((example$allowance))#確認是不是要的順序
+example$allowance <- ordered(example$allowance)#回存
+
+class(example$allowance)
+
+allowanceover1000 <- example$allowance >= "1001-2000"
+#是不是非我所給定的區間排序去指定就出不來?設1000-2000就沒有這個範圍
+example$name[allowanceover1000]
+```
+```{r}
+example$allowance <- factor(
+  c("0-1000","1001-2000","2000+"),levels=c("0-1000","1001-2000","2000+"),ordered = T)
+
+example$allowance <-#替換進去
+  factor(
+    example$allowance,
+    levels=c("0-1000", "1001-2000", "2000+"),
+    ordered = T # 設定為可排序factor
+  )
+```
+ 
+```{r}
+jsonlite::fromJSON("https://www.dropbox.com/s/3uijub7xheib405/list_victimAges_female.json?dl=1", simplifyDataFrame = F) -> list_victimAges_female
+```
+```{r}
+str(list_victimAges_female)
+View(list_victimAges_female$`數目`)
+sum(list_victimAges_female$`數目`)
+sum(list_victimAges_female$`數目`, na.rm=T)
+```
+
+```{r}
+list_victimAges_female$數目 <- as.integer(list_victimAges_female$數目)
+
+list_victimAges_female$年齡層 <- as.factor(list_victimAges_female$年齡層)
+
+levels(list_victimAges_female$年齡層) -> levels_ages
+print(levels_ages)#查看系統是用啥在存年齡層資料，發現是以下文字，所以我想把它拿出來當成物件看
+```
+```{r}
+list_victimAges_female$年齡層 <- factor(c("不詳","總計","0_5歲","12_17歲","18_23歲",  "24_29歲","30_39歲","40_49歲","50_59歲","6_11歲","60_64歲","65_69歲","70歲以上"),levels=c("不詳","總計","0_5歲","12_17歲","18_23歲","24_29歲","30_39歲","40_49歲","50_59歲","6_11歲","60_64歲","65_69歲","70歲以上"),ordered=T)
+```
+```{r}
+levels_newages <- levels_ages[c(12,13,1:11)]
+levels(list_victimAges_female$年齡層) <- levels_newages
+list_victimAges_female$年齡層
+#故事： 原本是很亂$ 年齡層: chr [1:338] "總計" "總計" "0_5歲" "0_5歲"
+#然後用level再另開一個帳戶專門裝這些序列名稱叫levels_ages
+#然後改一下levels_ages2的內容，存到levels_newages
+#然後再用箭頭朝左來用levels_newages替換新順序，回存到原始資料的level設定函數
+#最後叫出樹狀圖九可以看到資料乖乖牌好
+
+```
+```{r}
+sum(list_victimAges_female$數目, na.rm=T)
+sum(list_victimAges_female$數目[pick_above30], na.rm = T)
+```
+```{r}
+#先告訴電腦$年齡層是可以排序的~~
+list_victimAges_female$年齡層 <- ordered(list_victimAges_female$年齡層)
+#再設一個要不要向量
+pick_above30 <- list_victimAges_female$年齡層 >="30_39歲"
+#用一個中括號下給他說我只要30-39以上的
+list_victimAges_female$年齡層[pick_above30]
+```
+```{r}
+print(example$bloodType)
+pickbloodB <- example$bloodType == "B"
+example$name[pickbloodB]
+```
+```{r}
+#養成習慣，先取邏輯名字，接左箭頭要對誰篩選，判斷值是什麼。
+#再來用單個中括號取出想要的小美~~
+pickexampleevens <- example$height%%2 == 0
+example$name[pickexampleevens]
+```
+```{r}
+pickcomesfromtaipei <- !example$residence %in% c("Taipei","New Taipei")
+#其實也可以把c("Taipei","New Taipei")設給一個名稱，看起來比較簡潔
+#####否定反選的差集可以加驚嘆號，在空白箭後面!!
+
+example$name[pickcomesfromtaipei]
+```
+```{r}
+#str(transcript100to103)
+lawandba <- c("法學院","商學院")
+fromlawandba <- transcript100to103$學院 %in% lawandba
+levels(as.factor(transcript100to103$學系[fromlawandba]))
+#挖屋!!!!!!!!!!~~~~unique好用
+#
+#
+unique(transcript100to103$學系)
+```
+```{r}
+examplewhoisna <- !is.na(example$weight)
+example$name[examplewhoisna]
+```
+```{r}
+picklistvictimsnan <- is.na(list_victimAges_female$數目)
+list_victimAges_female$數目[picklistvictimsnan]
+```
+```{r}
+#如果要判斷文字，除非引號內容一模一樣，否則選不出來喔，所以要用別的函數stringr去detect
+
+#install.packages("stringr")
+pickcharofexample <- stringr::str_detect(example$hobby,"美食")
+#記得長相stringr::str_detect()~
+example$name[pickcharofexample]
+```
+```{r}
+jsonlite::fromJSON("https://data.ntpc.gov.tw/od/data/api/EDC3AD26-8AE7-4916-A00B-BC6048D19BF8?$format=json") ->
+  garbageRoutes
+```
+```{r}
+typeof(garbageRoutes)
+class(garbageRoutes)
+#[1] "list"
+#[1] "data.frame"比單純list厲害~~~
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
