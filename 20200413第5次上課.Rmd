@@ -868,6 +868,9 @@ paste0(
 )
 ```
 
+
+
+
 ##202005第次上課
 ```{r}
 example <- list(
@@ -1028,6 +1031,7 @@ str_extract_all(addresses,"[0-9]+") # 幾樓也會選到
 #[0-9]+的意思是[0-9]，+，加號是可以有好多個但不知有幾個
 ```
 ```{r}
+#頭尾定位 Anchors
 phrase <- c("唧唧复唧唧")
 target_regex <- "唧唧"
 pattern <- glue::glue("^{target_regex}")
